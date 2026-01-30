@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlueWolf | Modern Yazarlık Kolektifi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* RESET & BASE */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --bluewolf-dark: #0a192f;
+            --bluewolf-blue: #1a237e;
+            --bluewolf-light: #64ffda;
+            --bluewolf-gold: #ffd700;
+            --bluewolf-white: #e6f1ff;
+        }
+        
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: var(--bluewolf-dark);
+            color: var(--bluewolf-white);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+        
+        .modern-sans {
+            font-family: 'Arial', 'Helvetica', sans-serif;
+        }
+        
+        /* NAVIGATION - Premium Styling */
+        .navbar {
+            background: rgba(10, 25, 47, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--bluewolf-gold);
+            padding: 1rem 0;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--bluewolf-gold);
+        }
+        
+        .logo i {
+            color: var(--bluewolf-light);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--bluewolf-white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-links a:hover {
+            color: var(--bluewolf-gold);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--bluewolf-gold);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* HERO SECTION - Dramatic */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(10, 25, 47, 0.9), rgba(26, 35, 126, 0.7)),
+                        url('https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 80px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, var(--bluewolf-white), var(--bluewolf-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2.5rem;
+            color: var(--bluewolf-light);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(45deg, var(--bluewolf-blue), var(--bluewolf-light));
+            color: var(--bluewolf-dark);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(100, 255, 218, 0.3);
+        }
+        
+        /* ABOUT SECTION */
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--bluewolf-gold);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--bluewolf-light);
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .about-text h3 {
+            color: var(--bluewolf-light);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--bluewolf-gold);
+            display: block;
+        }
+        
+        /* AUTHORS SECTION */
+        .authors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        .author-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+        }
+        
+        .author-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--bluewolf-gold);
+        }
+        
+        .author-img {
+            height: 250px;
+            background: linear-gradient(45deg, #1a237e, #64ffda);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+        }
+        
+        .author-info {
+            padding: 1.5rem;
+        }
+        
+        .author-name {
+            color: var(--bluewolf-gold);
+            margin-bottom: 0.5rem;
+        }
+        
+        .author-genre {
+            color: var(--bluewolf-light);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* WORKS SECTION - Elegant */
+        .works-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            border: 2px solid var(--bluewolf-light);
+            color: var(--bluewolf-white);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .tab-btn.active {
+            background: var(--bluewolf-light);
+            color: var(--bluewolf-dark);
+            font-weight: bold;
+        }
+        
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .work-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--bluewolf-gold);
+        }
+        
+        .work-title {
+            color: var(--bluewolf-white);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+        
+        .work-author {
+            color: var(--bluewolf-light);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* CONTACT SECTION */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: var(--bluewolf-white);
+            font-family: 'Georgia', serif;
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        /* FOOTER */
+        .footer {
+            background: rgba(10, 25, 47, 0.95);
+            padding: 3rem 0;
+            border-top: 2px solid var(--bluewolf-gold);
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            padding: 0 2rem;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            color: var(--bluewolf-gold);
+            margin-bottom: 1rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 50%;
+            color: var(--bluewolf-gold);
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: var(--bluewolf-gold);
+            color: var(--bluewolf-dark);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--bluewolf-light);
+            font-size: 0.9rem;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .section {
+                padding: 4rem 1rem;
+            }
+            
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVIGATION -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-paw"></i>
+                BlueWolf
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Ana Sayfa</a></li>
+                <li><a href="#about">Hakkımızda</a></li>
+                <li><a href="#authors">Yazarlarımız</a></li>
+                <li><a href="#works">Eserlerimiz</a></li>
+                <li><a href="#contact">İletişim</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>BlueWolf</h1>
+            <p>Modern Edebiyatın Yeni Sesi</p>
+            <p class="modern-sans">Kolektif yaratıcılığın gücüyle, kelimeleri sanata dönüştürüyoruz.</p>
+            <a href="#works" class="cta-button">Eserlerimizi Keşfedin</a>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="section">
+        <h2 class="section-title">Hakkımızda</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Yaratıcılığın Özgür Sürüsü</h3>
+                <p>BlueWolf, 2020'de kurulmuş, edebiyatın farklı türlerinde uzmanlaşmış yazarlardan oluşan bir kolektiftir. Amacımız, okuyuculara derin etki bırakan özgün eserler yaratmak ve yazarlık sanatının sınırlarını genişletmektir.</p>
+                <p>Her biri kendi alanında yetkin yazarlarımız, kolektif çalışma kültürümüz sayesinde birbirini besleyerek benzersiz eserler ortaya koymaktadır.</p>
+                
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-number">7</span>
+                        <span class="modern-sans">Yazar</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">24</span>
+                        <span class="modern-sans">Yayınlanmış Eser</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">5000+</span>
+                        <span class="modern-sans">Okuyucu</span>
+                    </div>
+                </div>
+            </div>
+            <div class="about-text">
+                <h3>Misyonumuz</h3>
+                <p>Modern edebiyatta yeni bir soluk olmak, okuyucuyu düşündüren ve hissettiren eserler üretmek.</p>
+                
+                <h3 style="margin-top: 2rem;">Değerlerimiz</h3>
+                <ul style="margin-left: 1.5rem;">
+                    <li>Özgünlük ve yaratıcılık</li>
+                    <li>Edebi kalite ve derinlik</li>
+                    <li>Kolektif bilgelik</li>
+                    <li>Okuyucu ile bağ kurmak</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- AUTHORS SECTION -->
+    <section id="authors" class="section" style="background: rgba(26, 35, 126, 0.1);">
+        <h2 class="section-title">Yazarlarımız</h2>
+        <div class="authors-grid">
+            <div class="author-card">
+                <div class="author-img">
+                    <i class="fas fa-user-edit"></i>
+                </div>
+                <div class="author-info">
+                    <h3 class="author-name">Aylin Demir</h3>
+                    <p class="author-genre">Roman · Psikolojik Kurgu</p>
+                    <p>İnsan psikolojisinin derinliklerine yolculuk...</p>
+                </div>
+            </div>
+            
+            <div class="author-card">
+                <div class="author-img">
+                    <i class="fas fa-user-edit"></i>
+                </div>
+                <div class="author-info">
+                    <h3 class="author-name">Can Yılmaz</h3>
+                    <p class="author-genre">Bilim Kurgu · Distopya</p>
+                    <p>Geleceğin dünyalarını bugünden yazıyor...</p>
+                </div>
+            </div>
+            
+            <div class="author-card">
+                <div class="author-img">
+                    <i class="fas fa-user-edit"></i>
+                </div>
+                <div class="author-info">
+                    <h3 class="author-name">Zeynep Kaya</h3>
+                    <p class="author-genre">Şiir · Deneysel Edebiyat</p>
+                    <p>Kelimenin müziğini arayan bir ruh...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WORKS SECTION -->
+    <section id="works" class="section">
+        <h2 class="section-title">Eserlerimiz</h2>
+        
+        <div class="works-tabs">
+            <button class="tab-btn active" onclick="filterWorks('all')">Tümü</button>
+            <button class="tab-btn" onclick="filterWorks('novel')">Roman</button>
+            <button class="tab-btn" onclick="filterWorks('story')">Öykü</button>
+            <button class="tab-btn" onclick="filterWorks('poetry')">Şiir</button>
+            <button class="tab-btn" onclick="filterWorks('essay')">Deneme</button>
+        </div>
+        
+        <div class="works-grid">
+            <div class="work-card" data-category="novel">
+                <h3 class="work-title">Gölgelerin Ardındaki</h3>
+                <p class="work-author">Aylin Demir</p>
+                <p>Bir ailenin sırlarla dolu geçmişini konu alan psikolojik roman.</p>
+            </div>
+            
+            <div class="work-card" data-category="story">
+                <h3 class="work-title">Son Işık</h3>
+                <p class="work-author">Can Yılmaz</p>
+                <p>Güneşin sönmeye başladığı bir dünyada hayatta kalma mücadelesi.</p>
+            </div>
+            
+            <div class="work-card" data-category="poetry">
+                <h3 class="work-title">Suskunluğun Melodisi</h3>
+                <p class="work-author">Zeynep Kaya</p>
+                <p>Sessizliğin sesini duymaya cesaret edenler için şiir koleksiyonu.</p>
+            </div>
+            
+            <div class="work-card" data-category="essay">
+                <h3 class="work-title">Dijital Çağda İnsan Olmak</h3>
+                <p class="work-author">BlueWolf Kolektif</p>
+                <p>Teknoloji ve insan doğası üzerine derinlemesine bir inceleme.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="section" style="background: rgba(26, 35, 126, 0.1);">
+        <h2 class="section-title">İletişim</h2>
+        
+        <div class="contact-form">
+            <form id="contactForm">
+                <div class="form-group">
+                    <input type="text" placeholder="Adınız Soyadınız" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="E-posta Adresiniz" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Konu">
+                </div>
+                <div class="form-group">
+                    <textarea placeholder="Mesajınız..." required></textarea>
+                </div>
+                <button type="submit" class="cta-button" style="width: 100%;">Gönder</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <div class="footer-logo">
+                    <i class="fas fa-paw"></i> BlueWolf
+                </div>
+                <p>Modern edebiyatın yeni sesi. Kolektif yaratıcılığın adresi.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-medium"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div>
+                <h3 style="color: var(--bluewolf-gold); margin-bottom: 1rem;">Hızlı Bağlantılar</h3>
+                <ul style="list-style: none;">
+                    <li><a href="#about" style="color: var(--bluewolf-white); text-decoration: none;">Hakkımızda</a></li>
+                    <li><a href="#authors" style="color: var(--bluewolf-white); text-decoration: none;">Yazarlar</a></li>
+                    <li><a href="#works" style="color:
